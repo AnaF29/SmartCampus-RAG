@@ -1,6 +1,5 @@
 chromadb
 mysql-connector-python
 python-dotenv
-openai
+google-genai
 streamlit
-anthropic

@@ -9,7 +9,7 @@ Exemplo: *"Qual é o conteúdo da P2 e qual é minha média atual em Banco de Da
 - **Python 3.10+**
 - **MySQL 8** (via Docker): tabelas, procedures e triggers
 - **ChromaDB**: base vetorial com os documentos das disciplinas
-- **Claude (API da Anthropic)**: modelo de linguagem com Function Calling
+- **Gemini (API do Google, biblioteca google-genai)**: modelo de linguagem com Function Calling
 - **Streamlit**: interface web
 
 ## Estrutura
@@ -36,7 +36,7 @@ cd SmartCampus-RAG
 ### 2. Configurar o `.env`
 Copie o `.env.example` para um arquivo `.env` e preencha:
 - `DB_PASSWORD`: uma senha para o MySQL
-- `ANTHROPIC_API_KEY`: sua chave da API da Anthropic
+- `GEMINI_API_KEY`: sua chave da API do Gemini, criada gratuitamente no Google AI Studio
 
 ### 3. Subir o banco de dados
 Com o Docker instalado:

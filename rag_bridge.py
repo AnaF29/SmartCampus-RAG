@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 
-def buscar(consulta: str, k: int = 4):
+def buscar(consulta: str, k: int = 8):
     try:
         # >>> AJUSTAR: troque pelo módulo/função de busca que a colega criou em rag/
         # Exemplo: se existe rag/busca.py com def buscar(pergunta, k): ...

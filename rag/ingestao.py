@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 import chromadb
@@ -43,6 +44,26 @@ def dividir_em_chunks(texto: str) -> list[str]:
     return [c for c in chunks if c]
 
 
+def dividir_em_secoes(texto: str) -> list[str]:
+    """Divide o Markdown pelas seções (##) e põe o título na frente de cada trecho."""
+    linhas = texto.splitlines()
+    titulo = next((l.lstrip("# ").strip() for l in linhas if l.startswith("# ")), "")
+
+    trechos = []
+    for secao in re.split(r"(?m)^(?=## )", texto):
+        if not secao.strip():
+            continue
+        primeira_linha = secao.strip().splitlines()[0]
+        cabecalho = primeira_linha.lstrip("#").strip()
+        if primeira_linha.startswith("## "):
+            prefixo = f"{titulo} — {cabecalho}: "
+        else:
+            prefixo = f"{titulo}: "
+        for parte in dividir_em_chunks(secao):
+            trechos.append(prefixo + parte)
+    return trechos
+
+
 def descobrir_disciplina(nome_arquivo: str) -> str:
    
     nome = nome_arquivo.lower()
@@ -72,7 +93,8 @@ def main():
     for arquivo in arquivos:
         total = 0
         for texto, pagina in ler_arquivo(arquivo):
-            for i, chunk in enumerate(dividir_em_chunks(texto)):
+            dividir = dividir_em_secoes if arquivo.suffix.lower() == ".md" else dividir_em_chunks
+            for i, chunk in enumerate(dividir(texto)):
                 ids.append(f"{arquivo.stem}-p{pagina}-c{i}")
                 textos.append(chunk)
                 metadados.append({
